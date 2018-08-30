@@ -1,0 +1,11 @@
+{
+  "name": "CoinBot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Assasinskilleur",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
