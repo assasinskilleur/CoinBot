@@ -17,14 +17,6 @@ bot.on("guildMemberAdd", function(member) {
 bot.on("message", function(message) {
     if(message.author.equals(bot.user)) return;
 
-    for (i = 0; i < tabAnsw.length; i++) {
-        if (message.content.startsWith(client.user.mention) && message.content.toLowerCase().indexOf(tabHello[i])) {
-            var row = Math.floor(Math.random() * tabAnsw.length);
-            message.channel.sendMessage(tabAnsw[row]);
-            break;
-        }
-    }
-
     if(!message.content.startsWith(PREFIX)) return;
 
     var args = message.content.substring(PREFIX.length).split(' ');
