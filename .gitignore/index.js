@@ -1,6 +1,7 @@
 const discord = require('discord.js');
 const bot = new discord.Client();
 var PREFIX = "!";
+var autoroles = "Chevalier 💀";
 
 bot.on("ready", function() {
     console.log('Ready');
@@ -11,7 +12,7 @@ bot.login(process.env.TOKEN);
 
 bot.on("guildMemberAdd", function(member) {
     member.guild.channels.find("name", "general").sendMessage("Hello " + member.mention + " ! Bienvenue sur Ordre de la Rédemption. Merci de lire " + message.guild.channels.get('329963414296461312').toString() + " avant tout autre action.");
-    member.addRole(member.guild.roles.find("name", "jean"));
+    member.addRole(member.guild.roles.find("name", autoroles));
 });
 
 bot.on("message", function(message) {
