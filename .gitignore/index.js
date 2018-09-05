@@ -23,8 +23,8 @@ bot.on("message", function(message) {
     switch (args[0].toLowerCase()) {
         case "help":
             var embed = new discord.RichEmbed()
-                .addField("!setautorole {arg}", "Changer le role quand un joueur rejoinds")
-                .addField("!setprefix {arg}", "Changer le prefix " + PREFIX + " en n'importe quoi", true)
+                .addField(PREFIX + "setautorole {arg}", "Changer le role quand un joueur rejoinds")
+                .addField(PREFIX + "setprefix {arg}", "Changer le prefix " + PREFIX + " en n'importe quoi", true)
                 .setColor(0xFF0000)
                 .setThumbnail(message.author.avatarURL)
             message.channel.sendEmbed(embed);
@@ -43,7 +43,9 @@ bot.on("message", function(message) {
             if(message.guild.member(message.author).hasPermission("ADMINISTRATOR")) {
                 if(args[1]){
                     PREFIX = args[1];
+                    message.channel.sendMessage("Le prefix a bien été changer en " + PREFIX);
                 }
+                message.channel.sendMessage("Commande incorrect : " + PREFIX + "setprefix {arg}");
             }
             break;
         default:
