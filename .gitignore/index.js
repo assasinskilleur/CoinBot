@@ -30,7 +30,16 @@ bot.on("message", function(message) {
                 .addField(PREFIX + "setautorole {arg}", "Affecte automatiquement le bon rôle à une personne rejoignant le serveur.")
                 .addField(PREFIX + "setprefix {arg}", "Change le préfixe actuel.", true)
                 .setColor(0xFF0000)
-                .setThumbnail(message.author.avatarURL)
+                .setThumbnail("https://cdn.discordapp.com/attachments/418027455719407627/486979032815239168/redemption.jpg")
+            message.channel.sendEmbed(embed);
+            break;
+        case "info":
+            var embed = new discord.RichEmbed()
+                .setTitle("Liste des informations :")
+                .addField("Préfix", "Le préfix actuelle est : " + PREFIX)
+                .addField("Autorole", "Le role affecter automatiquement est : " + autoroles, true)
+                .setColor(0xFF0000)
+                .setThumbnail("https://cdn.discordapp.com/attachments/418027455719407627/486979032815239168/redemption.jpg")
             message.channel.sendEmbed(embed);
             break;
         case "setautorole":
@@ -42,9 +51,11 @@ bot.on("message", function(message) {
                 if(args[1] && !args[2]){
                     autoroles = args[1];
                     message.channel.sendMessage("L'autorôle est paramétré sur : " + autoroles);
+                }else{
+                    message.channel.sendMessage("Commande incorrecte : " + PREFIX + "setautorole {arg}");
                 }
             }else{
-                message.channel.sendMessage("Vous n'avez pas la permissions");
+                message.channel.sendMessage("Vous n'avez pas la permission.");
             }
             break;
         case "setprefix":
@@ -53,10 +64,10 @@ bot.on("message", function(message) {
                     PREFIX = args[1];
                     message.channel.sendMessage("Le préfixe a bien été changé : " + PREFIX);
                 }else{
-                    message.channel.sendMessage("Commande incorrect : " + PREFIX + "setprefix {arg}");
+                    message.channel.sendMessage("Commande incorrecte : " + PREFIX + "setprefix {arg}");
                 }
             }else{
-                message.channel.sendMessage("Vous n'avez pas la permissions");
+                message.channel.sendMessage("Vous n'avez pas la permission.");
             }
             break;
         default:
