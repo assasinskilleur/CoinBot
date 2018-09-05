@@ -36,11 +36,11 @@ bot.on("message", function(message) {
             if((message.guild.member(message.author).hasPermission("ADMINISTRATOR")) || (message.guild.member(message.author).hasPermission("MANAGE_ROLES"))) {
                 if(args[1] && args[2]){
                     autoroles = args[1] + " " + args[2]
-                    message.channel.sendMessage("Le roles automatique a été changer pour : " + autoroles);
+                    message.channel.sendMessage("L'autorôle est paramétré sur : " + autoroles);
                 }
                 if(args[1] && !args[2]){
                     autoroles = args[1];
-                    message.channel.sendMessage("Le roles automatique a été changer pour : " + autoroles);
+                    message.channel.sendMessage("L'autorôle est paramétré sur : " + autoroles);
                 }
             }
             break;
