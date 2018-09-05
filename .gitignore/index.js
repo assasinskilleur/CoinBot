@@ -24,7 +24,7 @@ bot.on("message", function(message) {
         case "help":
             var embed = new discord.RichEmbed()
                 .addField("!setautorole {arg}", "Changer le role quand un joueur rejoinds")
-                .addField("!setprefix {arg}", "Changer le prefix ! en n'importe quoi", true)
+                .addField("!setprefix {arg}", "Changer le prefix " + PREFIX + " en n'importe quoi", true)
                 .setColor(0xFF0000)
                 .setThumbnail(message.author.avatarURL)
             message.channel.sendEmbed(embed);
