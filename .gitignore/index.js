@@ -27,8 +27,11 @@ bot.on("message", function(message) {
         case "help":
             var embed = new discord.RichEmbed()
                 .setTitle("Liste des commandes :")
+                .addField(PREFIX + "setprefix {arg}", "Change le préfixe actuel.")
                 .addField(PREFIX + "setautorole {arg}", "Affecte automatiquement le bon rôle à une personne rejoignant le serveur.")
-                .addField(PREFIX + "setprefix {arg}", "Change le préfixe actuel.", true)
+                .addField(PREFIX + "play {arg}", "Comming Soon.")
+                .addField(PREFIX + "stop", "Comming Soon.")
+                .addField(PREFIX + "queue", "Comming Soon.", true)
                 .setColor(0xFF0000)
                 .setThumbnail("https://cdn.discordapp.com/attachments/418027455719407627/486979032815239168/redemption.jpg")
             message.channel.sendEmbed(embed);
@@ -37,7 +40,10 @@ bot.on("message", function(message) {
             var embed = new discord.RichEmbed()
                 .setTitle("Liste des informations :")
                 .addField("Préfix", "Le préfixe actuel est : **" + PREFIX + "**")
-                .addField("Autorole", "L'autorôle est configuré sur : **" + autoroles + "**", true)
+                .addField("Autorole", "L'autorôle est configuré sur : **" + autoroles + "**")
+                .addField("Play", "Comming Soon.")
+                .addField("Stop", "Comming Soon.")
+                .addField("Queue", "Comming Soon.", true)
                 .setColor(0xFF0000)
                 .setThumbnail("https://cdn.discordapp.com/attachments/418027455719407627/486979032815239168/redemption.jpg")
             message.channel.sendEmbed(embed);
