@@ -21,6 +21,9 @@ bot.on("message", function(message) {
     var args = message.content.substring(PREFIX.length).split(' ');
 
     switch (args[0].toLowerCase()) {
+        case "ping":
+            message.channel.sendMessage("POOOOOOONNNNNNNNGGGGGGGGGG !!!!!!!!!!");
+            break;
         case "help":
             var embed = new discord.RichEmbed()
                 .addField(PREFIX + "setautorole {arg}", "Changer le role quand un joueur rejoinds role actuelle : " + autoroles)
