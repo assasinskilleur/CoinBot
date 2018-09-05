@@ -26,6 +26,7 @@ bot.on("message", function(message) {
             break;
         case "help":
             var embed = new discord.RichEmbed()
+                .title("Liste des commands")
                 .addField(PREFIX + "setautorole {arg}", "Affecte automatiquement le bon rôle à une personne rejoignant le serveur.")
                 .addField(PREFIX + "setprefix {arg}", "Change le préfixe actuel.", true)
                 .setColor(0xFF0000)
