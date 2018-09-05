@@ -5,14 +5,6 @@ const bot = new discord.Client();
 var PREFIX = "!";
 var autoroles = "Chevalier 💀";
 
-var servers = {};
-
-function play(connection, message){
-    var server = servers[message.guild.id];
-
-    server.dispatcher = connection.playStream(ytdl(server.queue));
-}
-
 bot.on("ready", function() {
     console.log('Ready');
     bot.user.setGame("!help for commands").catch(console.error);
@@ -84,38 +76,46 @@ bot.on("message", function(message) {
             }
             break;
         case "join":
-            if(!message.member.voiceChannel){
-                message.channel.sendMessage("Il faut être dans un channel vocale.");
-                return;
-            }
-            if(!message.guild.voiceConnection) {
-                message.member.voiceChannel.join();
-                message.channel.sendMessage("Le bot a rejoind " + message.member.voiceChannel.toString());
-            }else{
-                message.channel.sendMessage("Je suis déjà dans un channel.");
+            if(message.member.roles.has(message.guild.roles.find("name", "DJ"))){
+                if(!message.member.voiceChannel){
+                    message.channel.sendMessage("Il faut être dans un channel vocale.");
+                    return;
+                }
+                if(!message.guild.voiceConnection) {
+                    message.member.voiceChannel.join();
+                    message.channel.sendMessage("Le bot a rejoind " + message.member.voiceChannel.toString());
+                }else{
+                    message.channel.sendMessage("Je suis déjà dans un channel.");
+                }
             }
             break;
         case "leave":
-
+            if(message.member.roles.has(message.guild.roles.find("name", "DJ"))){
+                if(message.guild.voiceConnection){
+                    message.member.voiceChannel.leave();
+                }else{
+                    message.channel.sendMessage("Je suis déjà partie.")
+                }
+            }
             break;
         case "play":
-            if(!args[1]){
-                message.channel.sendMessage("Commande incorrecte : " + PREFIX + "play {lien}");
-                return;
-            }
-            if(!message.member.voiceChannel){
-                message.channel.sendMessage("Il faut être dans un channel vocale.");
-                return;
-            }
-            if(!servers[message.guild.id]) servers[message.guild.id] = {
-                queue: []
-            };
+            if(message.member.roles.has(message.guild.roles.find("name", "DJ"))){
+                if(!args[1]){
+                    message.channel.sendMessage("Commande incorrecte : " + PREFIX + "play {lien}");
+                    return;
+                }
+                if(!message.member.voiceChannel){
+                    message.channel.sendMessage("Il faut être dans un channel vocale.");
+                    return;
+                }
+    
+                if(!message.guild.voiceConnection) message.member.voiceChannel.join();
 
-            var server = servers[message.guild.id];
-
-            if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection){
-                play(connection, message);
-            });
+                const dispatcher = connection.playStream(ytdl(args[1])).on('end', () => {
+                    console.log('song ended !');
+                });
+                dispatcher.setVolumeLogarithmic(5 / 5);
+            }
             break;
         default:
             message.channel.sendMessage("Invalid Command !");
