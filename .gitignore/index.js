@@ -36,8 +36,8 @@ bot.on("message", function(message) {
         case "info":
             var embed = new discord.RichEmbed()
                 .setTitle("Liste des informations :")
-                .addField("Préfix", "Le préfix actuelle est : " + PREFIX)
-                .addField("Autorole", "Le role affecter automatiquement est : " + autoroles, true)
+                .addField("Préfix", "Le préfixe actuel est : **" + PREFIX + "**")
+                .addField("Autorole", "L'autorôle est configuré sur : **" + autoroles + "**", true)
                 .setColor(0xFF0000)
                 .setThumbnail("https://cdn.discordapp.com/attachments/418027455719407627/486979032815239168/redemption.jpg")
             message.channel.sendEmbed(embed);
