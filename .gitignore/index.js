@@ -48,7 +48,7 @@ bot.on("message", function(message) {
             if(message.guild.member(message.author).hasPermission("ADMINISTRATOR")) {
                 if(args[1]){
                     PREFIX = args[1];
-                    message.channel.sendMessage("Le prefix a bien été changer en " + PREFIX);
+                    message.channel.sendMessage("Le préfixe a bien été changé : " + PREFIX);
                 }else{
                     message.channel.sendMessage("Commande incorrect : " + PREFIX + "setprefix {arg}");
                 }
