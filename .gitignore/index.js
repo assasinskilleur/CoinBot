@@ -43,6 +43,8 @@ bot.on("message", function(message) {
                     autoroles = args[1];
                     message.channel.sendMessage("L'autorôle est paramétré sur : " + autoroles);
                 }
+            }else{
+                message.channel.sendMessage("Vous n'avez pas la permissions");
             }
             break;
         case "setprefix":
@@ -53,6 +55,8 @@ bot.on("message", function(message) {
                 }else{
                     message.channel.sendMessage("Commande incorrect : " + PREFIX + "setprefix {arg}");
                 }
+            }else{
+                message.channel.sendMessage("Vous n'avez pas la permissions");
             }
             break;
         default:
