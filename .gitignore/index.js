@@ -23,7 +23,7 @@ bot.on("message", function(message) {
     switch (args[0].toLowerCase()) {
         case "help":
             var embed = new discord.RichEmbed()
-                .addField(PREFIX + "setautorole {arg}", "Changer le role quand un joueur rejoinds")
+                .addField(PREFIX + "setautorole {arg}", "Changer le role quand un joueur rejoinds role actuelle : " + autoroles)
                 .addField(PREFIX + "setprefix {arg}", "Changer le prefix " + PREFIX + " en n'importe quoi", true)
                 .setColor(0xFF0000)
                 .setThumbnail(message.author.avatarURL)
@@ -33,9 +33,11 @@ bot.on("message", function(message) {
             if((message.guild.member(message.author).hasPermission("ADMINISTRATOR")) || (message.guild.member(message.author).hasPermission("MANAGE_ROLES"))) {
                 if(args[1] && args[2]){
                     autoroles = args[1] + " " + args[2]
+                    message.channel.sendMessage("Le roles automatique a été changer pour : " + autoroles);
                 }
                 if(args[1] && !args[2]){
                     autoroles = args[1];
+                    message.channel.sendMessage("Le roles automatique a été changer pour : " + autoroles);
                 }
             }
             break;
