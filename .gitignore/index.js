@@ -46,8 +46,9 @@ bot.on("message", function(message) {
                 if(args[1]){
                     PREFIX = args[1];
                     message.channel.sendMessage("Le prefix a bien été changer en " + PREFIX);
+                }else{
+                    message.channel.sendMessage("Commande incorrect : " + PREFIX + "setprefix {arg}");
                 }
-                message.channel.sendMessage("Commande incorrect : " + PREFIX + "setprefix {arg}");
             }
             break;
         default:
