@@ -1,7 +1,5 @@
 const discord = require('discord.js');
 const bot = new discord.Client();
-const YouTube = require('simple-youtube-api');
-const ytdl = require('ytdl-core');
 var PREFIX = "!";
 var autoroles = "Chevalier 💀";
 
@@ -99,69 +97,12 @@ bot.on("message", function(message) {
             }
             break;
         case "play":
-            const voiceChannel = message.member.voiceChannel;
-            if(!message.member.roles.has(message.guild.roles.find("name", "DJ"))){
-                message.channel.sendMessage("Vous devez être DJ pour jouer de la musique");
-            }
-            if (!voiceChannel) return message.channel.send('Vous devez être dans un channel.');
-            const permissions = voiceChannel.permissionsFor(message.client.user);
-            if (!permissions.has('CONNECT')) {
-                return message.channel.send("Je n'arrive pas à me connecter je n'ai pas les droits");
-            }
-            if (!permissions.has('SPEAK')) {
-                return message.channel.send('Je ne peux pas parler dans ce channel');
-            }
-
-            if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-                const playlist = await youtube.getPlaylist(url);
-                const videos = await playlist.getVideos();
-                for (const video of Object.values(videos)) {
-                    const video2 = await youtube.getVideoByID(video.id); // eslint-disable-line no-await-in-loop
-                    await handleVideo(video2, message, voiceChannel, true); // eslint-disable-line no-await-in-loop
-                }
-                return message.channel.send(`✅ Playlist: **${playlist.title}** a été ajouté a la queue!`);
-            } else {
-                try {
-                    var video = await youtube.getVideo(url);
-                } catch (error) {
-                    try {
-                        var videos = await youtube.searchVideos(searchString, 10);
-                        let index = 0;
-                        message.channel.send(`__**Choix de la musique:**__ ${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')} Veuillez choisir entre 1-10 la musique.`);
-                        // eslint-disable-next-line max-depth
-                        try {
-                            var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
-                                maxMatches: 1,
-                                time: 10000,
-                                errors: ['time']
-                            });
-                        } catch (err) {
-                            console.error(err);
-                            return message.channel.send('No or invalid value entered, cancelling video selection.');
-                        }
-                        const videoIndex = parseInt(response.first().content);
-                        var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-                    } catch (err) {
-                        console.error(err);
-                        return message.channel.send("🆘 Je n'arrive pas a avoir de resulats.");
-                    }
-                }
-                return handleVideo(video, message, voiceChannel);
-            }
-        case "skip":
-            if (!message.member.voiceChannel) return message.channel.send("Tu n'est pas dans un channel vocale!");
-            if (!serverQueue) return message.channel.send("La queue est vide.");
-            serverQueue.connection.dispatcher.end('⏭ Musique Suivante');
             break;
-        case "stop":
-            if (!message.member.voiceChannel) return message.channel.send('Tu n\'est pas dans un channel vocale!');
-            if (!serverQueue) return message.channel.send('Stop');
-            serverQueue.songs = [];
-            serverQueue.connection.dispatcher.end('⏹ Musique arreté ');
+        case "skip":
+            break;
+	    case "stop":
             break;
         case "queue":
-            if (!serverQueue) return message.channel.send('There is nothing playing.');
-            message.channel.send(`__**File D'attente**__ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')} **Actuellement en route:** ${serverQueue.songs[0].title}`);
             break;
         default:
             message.channel.sendMessage("Invalid Command !");
@@ -171,7 +112,7 @@ bot.on("message", function(message) {
 
 
 
-async function handleVideo(video, message, voiceChannel, playlist = false) {
+/*async function handleVideo(video, message, voiceChannel, playlist = false) {
 	const serverQueue = queue.get(message.guild.id);
 	console.log(video);
 	const song = {
@@ -231,7 +172,7 @@ function play(guild, song) {
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
 	serverQueue.textChannel.send(`🎶 Start playing: **${song.title}**`);
-}
+}*/
 
 // let modRole = message.guild.roles.find("name", "Mod");
 // if(!message.member.roles.has(modRole.id)) {}
