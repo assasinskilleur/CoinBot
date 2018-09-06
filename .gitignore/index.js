@@ -74,7 +74,7 @@ bot.on("message", function(message) {
             }
             break;
         case "join":
-            if(message.member.roles.has(message.guild.roles.find("name", "DJ"))){
+            if(message.member.roles.has(message.guild.roles.find("name", "DJ").id)){
                 if(!message.member.voiceChannel){
                     message.channel.sendMessage("Il faut être dans un channel vocale.");
                     return;
@@ -90,7 +90,7 @@ bot.on("message", function(message) {
 	    }
             break;
         case "leave":
-            if(message.member.roles.has(message.guild.roles.find("name", "DJ"))){
+            if(message.member.roles.has(message.guild.roles.find("name", "DJ").id)){
                 if(message.guild.voiceConnection){
                     message.member.voiceChannel.leave();
                 }else{
