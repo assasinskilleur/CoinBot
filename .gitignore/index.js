@@ -85,7 +85,9 @@ bot.on("message", function(message) {
                 }else{
                     message.channel.sendMessage("Je suis déjà dans un channel.");
                 }
-            }
+            }else{
+		message.channel.sendMessage("Vous devez avoir le role DJ.");
+	    }
             break;
         case "leave":
             if(message.member.roles.has(message.guild.roles.find("name", "DJ"))){
@@ -94,7 +96,9 @@ bot.on("message", function(message) {
                 }else{
                     message.channel.sendMessage("Je suis déjà partie.")
                 }
-            }
+            }else{
+		message.channel.sendMessage("Vous devez avoir le role DJ.");
+	    }
             break;
         case "play":
             break;
