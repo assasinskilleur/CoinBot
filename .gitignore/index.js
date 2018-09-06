@@ -80,8 +80,12 @@ bot.on("message", function(message) {
                     return;
                 }
                 if(!message.guild.voiceConnection) {
-                    message.member.voiceChannel.join();
-                    message.channel.sendMessage("Le bot a rejoind " + message.member.voiceChannel.toString());
+                    if(message.guild.voiceChannel.joinable){
+			message.member.voiceChannel.join();
+                    	message.channel.sendMessage("Le bot a rejoind " + message.member.voiceChannel.toString());
+		    }else{
+			message.channel.sendMessage("Il met impossible de rejoinde le channel");
+		    }
                 }else{
                     message.channel.sendMessage("Je suis déjà dans un channel.");
                 }
