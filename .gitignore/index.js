@@ -1,5 +1,7 @@
 const discord = require('discord.js');
 const bot = new discord.Client();
+const ytdl = require('ytdl-core');
+const streamOptions = { seek: 0, volume: 1 };
 var PREFIX = "!";
 var autoroles = "Chevalier 💀";
 
@@ -101,6 +103,11 @@ bot.on("message", function(message) {
 	    }
             break;
         case "play":
+		if(!args[1]) return;
+		message.member.voiceChannel.join().then(connection => {
+	   		const stream = ytdl(args[1], { filter : 'audioonly' });
+	   		const dispatcher = connection.playStream(stream, streamOptions);
+	  	}).catch(console.error);
             break;
         case "skip":
             break;
