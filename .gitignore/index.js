@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 const bot = new discord.Client();
-const ytdl = require('ytdl-core');
-const streamOptions = { seek: 0, volume: 1 };
+//const ytdl = require('ytdl-core');
+//const streamOptions = { seek: 0, volume: 1 };
 var PREFIX = "!";
 var autoroles = "Chevalier 💀";
 
