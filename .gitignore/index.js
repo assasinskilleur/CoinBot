@@ -1,5 +1,6 @@
 const discord = require('discord.js');
 const bot = new discord.Client();
+const YoutubeStream = require('youtube-audio-stream');
 //const ytdl = require('ytdl-core');
 //const streamOptions = { seek: 0, volume: 1 };
 var PREFIX = "!";
@@ -75,115 +76,38 @@ bot.on("message", function(message) {
                 message.channel.sendMessage("Vous n'avez pas la permission.");
             }
             break;
-        /*case "join":
-            if(message.member.roles.has(message.guild.roles.find("name", "DJ").id)){
-                if(!message.member.voiceChannel){
-                    message.channel.sendMessage("Il faut être dans un channel vocale.");
-                    return;
-                }
-                if(!message.guild.voiceConnection) {
-			message.member.voiceChannel.join();
-                    	message.channel.sendMessage("Le bot a rejoind " + message.member.voiceChannel.toString());
-                }else{
-                    message.channel.sendMessage("Je suis déjà dans un channel.");
-                }
-            }else{
-		message.channel.sendMessage("Vous devez avoir le role DJ.");
-	    }
-            break;
-        case "leave":
-            if(message.member.roles.has(message.guild.roles.find("name", "DJ").id)){
-                if(message.guild.voiceConnection){
-                    message.member.voiceChannel.leave();
-                }else{
-                    message.channel.sendMessage("Je suis déjà partie.")
-                }
-            }else{
-		message.channel.sendMessage("Vous devez avoir le role DJ.");
-	    }
+        case "join":
             break;
         case "play":
-		if(!args[1]) return;
-		message.member.voiceChannel.join().then(connection => {
-	   		const stream = ytdl(args[1], { filter : 'audioonly' });
-	   		const dispatcher = connection.playStream(stream, streamOptions);
-	  	}).catch(console.error);
+            let voiceChannel = message.guild.channels
+            .filter(function (channel) { return channel.type === 'voice' })
+            .find("name", "Music")
+            // On récupère les arguments de la commande 
+            // il faudrait utiliser une expression régulière pour valider le lien youtube
+            // On rejoint le channel audio
+            voiceChannel
+            .join()
+            .then(function (connection) {
+            // On démarre un stream à partir de la vidéo youtube
+            let stream = YoutubeStream(args[1])
+            stream.on('error', function () {
+                message.reply("Je n'ai pas réussi à lire cette vidéo :(")
+                connection.disconnect()
+            })
+            // On envoie le stream au channel audio
+            // Il faudrait ici éviter les superpositions (envoie de plusieurs vidéo en même temps)
+            connection
+                .playStream(stream)
+                .on('end', function () {
+                connection.disconnect()
+                })
+            })
             break;
-        case "skip":
-            break;
-	    case "stop":
-            break;
-        case "queue":
-            break;*/
         default:
             message.channel.sendMessage("Invalid Command !");
             break;
     }
 });
-
-
-
-/*async function handleVideo(video, message, voiceChannel, playlist = false) {
-	const serverQueue = queue.get(message.guild.id);
-	console.log(video);
-	const song = {
-		id: video.id,
-		title: Util.escapeMarkdown(video.title),
-		url: `https://www.youtube.com/watch?v=${video.id}`
-	};
-	if (!serverQueue) {
-		const queueConstruct = {
-			textChannel: message.channel,
-			voiceChannel: voiceChannel,
-			connection: null,
-			songs: [],
-			volume: 5,
-			playing: true
-		};
-		queue.set(message.guild.id, queueConstruct);
-
-		queueConstruct.songs.push(song);
-
-		try {
-			var connection = await voiceChannel.join();
-			queueConstruct.connection = connection;
-			play(message.guild, queueConstruct.songs[0]);
-		} catch (error) {
-			console.error(`Je ne peut me connecter: ${error}`);
-			queue.delete(message.guild.id);
-			return message.channel.send(`Je ne peut me connecter ${error}`);
-		}
-	} else {
-		serverQueue.songs.push(song);
-		console.log(serverQueue.songs);
-		if (playlist) return undefined;
-		else return message.channel.send(`✅ **${song.title}** à été ajouté à la queue.`);
-	}
-	return undefined;
-}
-
-function play(guild, song) {
-	const serverQueue = queue.get(guild.id);
-
-	if (!song) {
-		serverQueue.voiceChannel.leave();
-		queue.delete(guild.id);
-		return;
-	}
-	console.log(serverQueue.songs);
-
-	const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
-		.on('end', reason => {
-			if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
-			else console.log(reason);
-			serverQueue.songs.shift();
-			play(guild, serverQueue.songs[0]);
-		})
-		.on('error', error => console.error(error));
-	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-
-	serverQueue.textChannel.send(`🎶 Start playing: **${song.title}**`);
-}*/
 
 // let modRole = message.guild.roles.find("name", "Mod");
 // if(!message.member.roles.has(modRole.id)) {}
