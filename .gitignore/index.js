@@ -75,7 +75,7 @@ bot.on("message", function(message) {
                 message.channel.sendMessage("Vous n'avez pas la permission.");
             }
             break;
-        case "join":
+        /*case "join":
             if(message.member.roles.has(message.guild.roles.find("name", "DJ").id)){
                 if(!message.member.voiceChannel){
                     message.channel.sendMessage("Il faut être dans un channel vocale.");
@@ -114,7 +114,7 @@ bot.on("message", function(message) {
 	    case "stop":
             break;
         case "queue":
-            break;
+            break;*/
         default:
             message.channel.sendMessage("Invalid Command !");
             break;
