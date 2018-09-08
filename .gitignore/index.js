@@ -99,8 +99,8 @@ bot.on("message", function(message) {
                 .on('end', function () {
                 connection.disconnect()
                 });
-            });
-            break;*/
+            });*/
+            break;
         default:
             message.channel.sendMessage("Invalid Command !");
             break;
