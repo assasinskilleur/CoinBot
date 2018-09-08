@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 const bot = new discord.Client();
-const YoutubeStream = require('youtube-audio-stream');
+//const YoutubeStream = require('youtube-audio-stream');
 var PREFIX = "!";
 var autoroles = "Chevalier 💀";
 
@@ -77,7 +77,7 @@ bot.on("message", function(message) {
         case "join":
             break;
         case "play":
-            let voiceChannel = message.guild.channels
+            /*let voiceChannel = message.guild.channels
             .filter(function (channel) { return channel.type === 'voice' })
             .find("name", "Music");
             // On récupère les arguments de la commande 
@@ -100,7 +100,7 @@ bot.on("message", function(message) {
                 connection.disconnect()
                 });
             });
-            break;
+            break;*/
         default:
             message.channel.sendMessage("Invalid Command !");
             break;
