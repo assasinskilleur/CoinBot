@@ -13,6 +13,10 @@ bot.on("guildMemberAdd", function(member) {
     member.addRole(member.guild.roles.find("name", autoroles));
 });
 
+bot.on("guildMemberRemove", function(member) {
+    member.guild.channels.find("name", "new").sendMessage("Goodbye " + member.mention + ".. Bon vent !");
+});
+
 bot.on("message", function(message) {
     if(message.author.equals(bot.user)) return;
 
