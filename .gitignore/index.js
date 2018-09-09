@@ -1,6 +1,5 @@
 const discord = require('discord.js');
 const bot = new discord.Client();
-//const YoutubeStream = require('youtube-audio-stream');
 var PREFIX = "!";
 var autoroles = "Chevalier 💀";
 
@@ -73,33 +72,6 @@ bot.on("message", function(message) {
             }else{
                 message.channel.sendMessage("Vous n'avez pas la permission.");
             }
-            break;
-        case "join":
-            break;
-        case "play":
-            /*let voiceChannel = message.guild.channels
-            .filter(function (channel) { return channel.type === 'voice' })
-            .find("name", "Music");
-            // On récupère les arguments de la commande 
-            // il faudrait utiliser une expression régulière pour valider le lien youtube
-            // On rejoint le channel audio
-            voiceChannel
-            .join()
-            .then(function (connection) {
-            // On démarre un stream à partir de la vidéo youtube
-            let stream = YoutubeStream(args[1])
-            stream.on('error', function () {
-                message.reply("Je n'ai pas réussi à lire cette vidéo :(")
-                connection.disconnect()
-            });
-            // On envoie le stream au channel audio
-            // Il faudrait ici éviter les superpositions (envoie de plusieurs vidéo en même temps)
-            connection
-                .playStream(stream)
-                .on('end', function () {
-                connection.disconnect()
-                });
-            });*/
             break;
         default:
             message.channel.sendMessage("Invalid Command !");
